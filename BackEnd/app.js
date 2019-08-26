@@ -35,7 +35,7 @@ server.post("/register", (req, res) => {
     //check body is correct
     if (req.body["usuario"] != undefined && req.body["usuario"] != "" && req.body["password"] != undefined && req.body["password"] != "") {
         //check if user is already registered
-        fs.readFile("usuarios.json", (err, data) => {
+        fs.readFile(path.join(__dirname,'usuarios.json'), (err, data) => {
 
             if (err) {
                 console.log(err)
@@ -59,7 +59,7 @@ server.post("/register", (req, res) => {
                         "usuario": req.body["usuario"],
                         "password": hash
                     })
-                    fs.writeFile("usuarios.json", JSON.stringify(usersData), (err, data) => {
+                    fs.writeFile(path.join(__dirname,'usuarios.json'), JSON.stringify(usersData), (err, data) => {
                         console.log("User registered".green)
                         res.send({
                             "message": "User registered correctly. You can log in now :)"
@@ -78,7 +78,7 @@ server.post("/login", (req, res) => {
 
     if (req.body["usuario"] != undefined && req.body["usuario"] != "") {
         //check if username exists
-        fs.readFile("usuarios.json", (err, data) => {
+        fs.readFile(path.join(__dirname,'usuarios.json'), (err, data) => {
 
             if (err) {
                 console.log(err)
@@ -142,7 +142,7 @@ server.post("/tecnico", (req, res) => {
     //check body is correct
     if (req.body["nombre"] != undefined && req.body["nombre"] != "" && req.body["password"] != undefined && req.body["password"] != "") {
         //check if user is already registered
-        fs.readFile("tecnicos.json", (err, data) => {
+        fs.readFile(path.join(__dirname,'tecnicos.json'), (err, data) => {
 
             if (err) {
                 console.log(err)
@@ -193,7 +193,7 @@ server.put("/tecnico", (req, res) => {
     
     if (req.body["tecnicoID"] != undefined && req.body["tecnicoID"] != "") {
         
-        fs.readFile("tecnicos.json", (err, data) => {
+        fs.readFile(path.join(__dirname,'tecnicos.json'), (err, data) => {
 
             if (err) {
                 console.log(err)
@@ -228,7 +228,7 @@ server.put("/tecnico", (req, res) => {
                     }
 
                     usersData.push(usuarioTecnico)
-                    fs.writeFile("tecnicos.json", JSON.stringify(usersData), (err, data) => {
+                    fs.writeFile(path.join(__dirname,'tecnicos.json'), JSON.stringify(usersData), (err, data) => {
                         console.log("User update".green)
                         res.send({
                             "message": "User update correctly. You can log in now :)"
@@ -254,7 +254,7 @@ server.put("/tecnico", (req, res) => {
 
 //LISTA DE TODOS LOS TECNICOS
 server.get("/tecnicos", (req, res) => {
-    fs.readFile("tecnicos.json", (err, data) => {
+    fs.readFile(path.join(__dirname,'tecnicos.json'), (err, data) => {
 
         res.send(data)
     })
@@ -262,7 +262,7 @@ server.get("/tecnicos", (req, res) => {
 
 //TECNICO POR SU ID
 server.get("/tecnicos/:id", (req, res) => {
-    fs.readFile("tecnicos.json", (err, data) => {
+    fs.readFile(path.join(__dirname,'tecnicos.json'), (err, data) => {
 
         let tecnicosPars = JSON.parse(data)
         let tecnicoId = req.params.id
@@ -292,8 +292,8 @@ server.get("/testAll", (req, res) => {
     res.send("All OK!")
 })
 
-if (!fs.existsSync("usuarios.json")) {
-    fs.writeFileSync("usuarios.json", "[]");
+if (!fs.existsSync(path.join(__dirname,'usuarios.json'))) {
+    fs.writeFileSync(path.join(__dirname,'usuarios.json'), "[]");
 }
 
 
