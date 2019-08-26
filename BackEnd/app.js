@@ -11,7 +11,9 @@ var cors = require('cors')
 const server = express();
 const port = process.argv[2];
 const secrets = JSON.parse(fs.readFileSync("secrets.json"))
+const path = require('path')
 
+path.join(__dirname,'secrets.json')
 //Middleware
 server.use(cors())
 server.use(bodyParser.json())
