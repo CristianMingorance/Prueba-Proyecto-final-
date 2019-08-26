@@ -10,10 +10,10 @@ var cors = require('cors')
 //Create server, get port and load password for token signature
 const server = express();
 const port = process.argv[2];
-const secrets = JSON.parse(fs.readFileSync("secrets.json"))
+const secrets = JSON.parse(fs.readFileSync(path.join(__dirname,'secrets.json')))
 const path = require('path')
 
-path.join(__dirname,'secrets.json')
+
 //Middleware
 server.use(cors())
 server.use(bodyParser.json())
